@@ -99,6 +99,10 @@ label start:
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
+    scene black with Fade(0.2, 1, 0.2, color="#000")
+
+    $ renpy.movie_cutscene("videos/intro.webm", delay=None, loops=0, stop_music=True)
+        
 
     scene room day
 
@@ -288,7 +292,7 @@ label start:
     
     label bad1:
 
-        mayeth "Mabuti naman anak. Magfocus ka lang sa pag-aaral mo. Nag-aalala lang ako. Bawasan mo na rin ang paglalaro mo ng \nScatter, at baka mapabayaan mo ang pag-aaral mo.." with my_dissolve
+        mayeth "Mabuti naman anak. Magfocus ka lang sa pag-aaral mo. Nag-aalala lang ako. Bawasan mo na rin\n ang paglalaro mo ng Scatter, at baka mapabayaan mo ang pag-aaral mo.." with my_dissolve
         jump continue1
 
     label good1:
@@ -401,6 +405,10 @@ label start:
             $ morale += 1
             jump continue4 #studying animation
 
+    label continue4:
+        show room day with my_dissolve
+        jump continue5
+
     label bad4:
         show Kenneth home sad at left_zoomed with my_dissolve
 
@@ -443,6 +451,8 @@ label start:
         kenneth "Sh*t, wala na akong pera." with my_dissolve
 
         scene black with Fade(0.2, 1, 0.2, color="#000")
+
+    label continue5:
 
         $ renpy.movie_cutscene("videos/The Desperation Stage.webm", delay=None, loops=0, stop_music=True)
         
