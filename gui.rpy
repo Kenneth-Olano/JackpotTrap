@@ -91,10 +91,10 @@ define gui.title_text_size = 75
 # define gui.game_menu_background = "gui/game_menu.png"
 
 image main_menu_bg = im.Scale("gui/main_menu.png", config.screen_width, config.screen_height)
-image game_menu_bg = im.Scale("gui/game_menu.png", config.screen_width, config.screen_height)
+# image game_menu_bg = im.Scale("gui/game_menu.png", config.screen_width, config.screen_height)
 
 define gui.main_menu_background = "main_menu_bg"
-define gui.game_menu_background = "game_menu_bg"
+# define gui.game_menu_background = "game_menu_bg"
 
 
 ## Dialogue ####################################################################

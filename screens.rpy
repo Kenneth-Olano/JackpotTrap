@@ -197,7 +197,7 @@ style mayeth_text is say_text:
     color "#fff"
     size 32
 
-#Mayeth dialogue box
+#Marco dialogue box
 style window_marco is window:
     background Frame("gui/marco_dialogue.png", xalign=0.5, yalign=1.0)
     xalign 0
@@ -209,6 +209,21 @@ style namebox_marco is namebox:
     ypos 1
 
 style marco_text is say_text:
+    color "#fff"
+    size 32
+
+#Erica dialogue box
+style window_erica is window:
+    background Frame("gui/erica_dialogue.png", xalign=0.5, yalign=1.0)
+    xalign 0
+    yalign 0.75
+
+style namebox_erica is namebox:
+    background None
+    xalign 1.0
+    ypos 1
+
+style erica_text is say_text:
     color "#fff"
     size 32
 
@@ -552,8 +567,8 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
     if main_menu:
         add gui.main_menu_background
-    else:
-        add gui.game_menu_background
+    # else:
+        # add gui.game_menu_background
 
     frame:
         style "game_menu_outer_frame"
@@ -634,14 +649,14 @@ style game_menu_outer_frame:
     bottom_padding 45
     top_padding 180
 
-    background "gui/overlay/game_menu.png"
+    # background "gui/overlay/game_menu.png"
 
 style game_menu_navigation_frame:
     xsize 420
     yfill True
 
 style game_menu_content_frame:
-    left_margin 60
+    left_padding 60
     right_margin 30
     top_margin 15
 
@@ -677,27 +692,17 @@ style return_button:
 ## example of how to make a custom screen.
 
 screen about():
-
     tag menu
-
-    ## This use statement includes the game_menu screen inside this one. The
-    ## vbox child is then included inside the viewport inside the game_menu
-    ## screen.
-    use game_menu(_("About"), scroll="viewport"):
-
+    use game_menu(_(""), scroll="viewport"):
         style_prefix "about"
 
         vbox:
-
-            label "[config.name!t]"
-            text _("Version [config.version!t]\n")
-
-            ## gui.about is usually set in options.rpy.
-            if gui.about:
-                text "[gui.about!t]\n"
-
-            text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
-
+            xfill False
+            xalign 0.0
+            add "gui/about show.png" zoom 0.5
+            # add "gui/about show.png" xalign 0.0
+        
+            
 
 style about_label is gui_label
 style about_label_text is gui_label_text
@@ -1110,32 +1115,41 @@ style history_label_text:
 ## help.
 
 screen help():
-
     tag menu
-
-    default device = "keyboard"
-
-    use game_menu(_("Help"), scroll="viewport"):
-
-        style_prefix "help"
+    use game_menu(_(""), scroll="viewport"):
+        style_prefix "about"
 
         vbox:
-            spacing 23
+            xfill False
+            xalign 0.0
+            add "gui/help show.png" zoom 0.5
+            # add "gui/about show.png" xalign 0.0
 
-            hbox:
+    # tag menu
 
-                textbutton _("Keyboard") action SetScreenVariable("device", "keyboard")
-                textbutton _("Mouse") action SetScreenVariable("device", "mouse")
+    # default device = "keyboard"
 
-                if GamepadExists():
-                    textbutton _("Gamepad") action SetScreenVariable("device", "gamepad")
+    # use game_menu(_("Help"), scroll="viewport"):
 
-            if device == "keyboard":
-                use keyboard_help
-            elif device == "mouse":
-                use mouse_help
-            elif device == "gamepad":
-                use gamepad_help
+    #     style_prefix "help"
+
+    #     vbox:
+    #         spacing 23
+
+    #         hbox:
+
+    #             textbutton _("Keyboard") action SetScreenVariable("device", "keyboard")
+    #             textbutton _("Mouse") action SetScreenVariable("device", "mouse")
+
+    #             if GamepadExists():
+    #                 textbutton _("Gamepad") action SetScreenVariable("device", "gamepad")
+
+    #         if device == "keyboard":
+    #             use keyboard_help
+    #         elif device == "mouse":
+    #             use mouse_help
+    #         elif device == "gamepad":
+    #             use gamepad_help
 
 
 screen keyboard_help():
@@ -1698,6 +1712,8 @@ style game_menu_navigation_frame:
 style game_menu_content_frame:
     variant "small"
     top_margin 0
+    xalign 0
+    
 
 style game_menu_viewport:
     variant "small"
@@ -1750,3 +1766,7 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
+
+# style about_game_menu_content_frame is game_menu_content_frame:
+#     variant "large"
+#     left_margin 

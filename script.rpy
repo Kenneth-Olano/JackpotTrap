@@ -45,6 +45,12 @@ define marco = Character(
     what_style="marco_text",
 )
 
+define erica = Character(
+    window_style="window_erica",
+    namebox_style="namebox_erica",
+    what_style="erica_text",
+)
+
 image Kenneth home neutral:
     "kenneth/ken_home_neutral.png"
     xalign 0
@@ -75,6 +81,11 @@ image Kenneth school frustrated:
     xalign 0
     zoom 0.25
 
+image Kenneth school sad:
+    "kenneth/ken_school_sad.png"
+    xalign 0
+    zoom 0.25
+
 image Kenneth school happy:
     "kenneth/ken_school_happy.png"
     xalign 0
@@ -87,6 +98,11 @@ image Mayeth:
 
 image Marco:
     "marco/marco.png"
+    xalign 1
+    zoom 0.25
+
+image Erica:
+    "erica/erica.png"
     xalign 1
     zoom 0.25
 
@@ -379,11 +395,15 @@ label start:
             jump good2 #studying animation
 
     label bad3:
-        scene school with Fade(0.5, 2, 0.5)
+        scene black with Fade(0.2, 1, 0.2, color="#000")
+
+        $ renpy.movie_cutscene("videos/Play With Marco.webm", delay=None, loops=0, stop_music=True)
         jump continue3
 
     label good2:
-        scene school with Fade(0.5, 2, 0.5)
+        scene black with Fade(0.2, 1, 0.2, color="#000")
+
+        $ renpy.movie_cutscene("videos/Study With Erica.webm", delay=None, loops=0, stop_music=True)
         jump continue3
 
     label continue3:
@@ -456,6 +476,130 @@ label start:
 
         $ renpy.movie_cutscene("videos/The Desperation Stage.webm", delay=None, loops=0, stop_music=True)
         
+        scene kitchen day with my_dissolve
+
+        show Kenneth home neutral at left_zoomed with my_dissolve
+
+        system "Kenneth is cleaning the house thoroughly when..." with my_dissolve
+
+        kenneth "Ma! Tapos na po akong maglinis!" with my_dissolve
+
+        system "..." with my_dissolve
+
+        kenneth "Wala si Mama..." with my_dissolve
+
+        system "Kenneth sees his mom's wallet." with my_dissolve
+
+        kenneth "(Wala na akong pera.)" with my_dissolve
+
+        system "Kenneth takes his mother's wallet and opens it up." with my_dissolve
+
+        menu:
+            "Choose a response:"
+
+            "Steal the money":
+                # show Kenneth home happy at left_zoomed with my_dissolve
+
+                # kenneth "Hindi naman niya siguro mapapansin." with my_dissolve
+
+                scene black with Fade(0.2, 1, 0.2, color="#000")
+
+                $ renpy.movie_cutscene("videos/steal.webm", delay=None, loops=0, stop_music=True)
+
+                $ morale += -1
+                jump continue6 #gambling animation
+
+            "Put the wallet back down.":
+                # show Kenneth home sad at left_zoomed with my_dissolve
+
+                # kenneth "Mali 'to. Hindi tama itong ginagawa ko." with my_dissolve
+                
+                scene black with Fade(0.2, 1, 0.2, color="#000")
+
+                $ renpy.movie_cutscene("videos/dont steal.webm", delay=None, loops=0, stop_music=True)
+
+                $ morale += 1
+
+                jump continue6 #studying animation
+    
+    label continue6:
+        scene school with my_dissolve
+
+        show Kenneth school sad at left_zoomed with my_dissolve
+
+        show Erica at right_zoomed with my_dissolve
+
+        erica "Bakit malungkot ka d'yan?" with my_dissolve
+
+        kenneth "Wala na akong pera… naubos sa Scatter." with my_dissolve
+
+        erica "Matagal na kitang sinasabihan nyan. Muntikan pa tayo mag-away dahil d'yan, eh."
+        
+        system "......" with my_dissolve
+
+        erica "Di bale… hindi rin naman kita matitiis. Baka gusto mong humiram muna ng pera?"
+
+        menu:
+            "Choose a response:"
+
+            "Sige, kahit 300 lang.":
+                erica "Sige, basta sa maayos mo gamitin ah, hindi sa Scatter. Hindi maganda ang experience ko sa mga sugal na yan…" with my_dissolve
+                
+                $ morale += -1
+
+                jump continue7 
+
+            "Hindi na, okay lang ako.":
+                erica "Okay, pero kung magbago isip mo, sabihin mo lang sa'kin, ha?" with my_dissolve
+
+                $ morale += 1
+
+                jump continue7 
+    
+    label continue7:
+        scene room night with my_dissolve
+
+        system "Kenneth looks at the things he bought. He contemplates whether to sell them." with my_dissolve
+
+    menu: #ending
+        "Choose a response:"
+
+        "Sell your things and risk it all.": 
+            $ morale += -3
+            jump continue8
+
+        "Stop, and ask for help.":
+            $ morale += 3
+            jump continue8
+
+    label continue8:
+        if morale >= 0:
+            scene white with Fade(0.2, 1, 0.2, color="#fff")
+
+            $ renpy.movie_cutscene("videos/Good Ending.webm", delay=None, loops=0, stop_music=True)
+        else:
+            scene black with Fade(0.2, 1, 0.2, color="#000")
+
+            $ renpy.movie_cutscene("videos/Bad Ending.webm", delay=None, loops=0, stop_music=True)
+
+        scene black with Fade(0.2, 1, 0.2, color="#000")
+
+        $ renpy.movie_cutscene("videos/Good and Bad Ending Message.webm", delay=None, loops=0, stop_music=True)
+
+        $ renpy.pause(5)
+
+    
+
+        
+
+
+
+    
+    
+
+
+
+
 
 
         
